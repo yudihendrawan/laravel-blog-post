@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Article;
+use App\Models\Category;
+
+use \Cviebrock\EloquentSluggable\Services\SlugService;
+
+class DashboardArticleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+
+        return view('dashboard.articles.index', [
+            'articles' => Article::where('user_id', auth()->user()->id)->get()
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('dashboard.articles.create', [
+            'categories' => Category::all(),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Article $article)
+    {
+        return view('dashboard.articles.show', [
+            'article' => $article
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Article $article)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Article $article)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Article  $article
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Article $article)
+    {
+        //
+    }
+    public function checkSlug(Request $request)
+    {
+        $title = $request->title;
+
+        if (empty($title)) {
+            return response()->json(['error' => 'Judul tidak boleh kosong.'], 422);
+        }
+
+        try {
+            $slug = SlugService::createSlug(Article::class, 'slug', $title);
+            return response()->json(['slug' => $slug]);
+        } catch (\Exception $e) {
+            // Tangani kesalahan
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+}
