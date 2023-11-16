@@ -36,5 +36,5 @@ DB_DATABASE=crud
 DB_USERNAME=root
 DB_PASSWORD=
 ```
-11. If you just want to create a table, run the php artisan migrate command. Check in phpmyadmin, the table should appear.
+11. If you just want to create a table, run the ```php artisan migrate``` command. Check in phpmyadmin, the table should appear.
 12. Once finished, run the php artisan serve command then it can be accessed by http://localhost:8000/
