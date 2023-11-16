@@ -13,6 +13,7 @@ class Article extends Model
 
     // protected $fillable = ['title', 'excerpt', 'body'];
     protected $guarded = ['id'];
+    // protected $fillable = ['user_id'];
     protected $with = ['category', 'author'];
 
     public function scopeFilter($query, array $filters)

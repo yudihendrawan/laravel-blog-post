@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
-
 use \Cviebrock\EloquentSluggable\Services\SlugService;
-
+use Illuminate\Support\Str;
 class DashboardArticleController extends Controller
 {
     /**
@@ -43,7 +42,19 @@ class DashboardArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:articles',
+            'category_id' => 'required',
+            'body' => 'required'
+        ]);
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Article::create($validatedData);
+
+        return redirect('/dashboard/articles')->with('success', 'New article has been added!');
+        
     }
 
     /**
@@ -54,6 +65,9 @@ class DashboardArticleController extends Controller
      */
     public function show(Article $article)
     {
+        if ($article->author->id !== auth()->user()->id) {
+            abort(403);
+        }
         return view('dashboard.articles.show', [
             'article' => $article
         ]);
@@ -67,7 +81,14 @@ class DashboardArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        if ($article->author->id !== auth()->user()->id) {
+            abort(403);
+        }
+        return view('dashboard.articles.edit', [
+            'article' => $article,
+            'categories' => Category::all()
+        ]);
+        
     }
 
     /**
@@ -79,7 +100,24 @@ class DashboardArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        //
+        $rules = [
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'body' => 'required'
+        ];
+
+        if ($request->slug != $article->slug) {
+            $rules['slug'] = 'required|unique:articles';
+        }
+
+        $validatedData = $request->validate($rules);
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Article::where('id', $article->id)->update($validatedData);
+
+        return redirect('/dashboard/articles')->with('success', 'Article has been updated!');
+        
     }
 
     /**
@@ -90,7 +128,9 @@ class DashboardArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        Article::destroy($article->id);
+
+        return redirect('/dashboard/articles')->with('success', 'Article has been deleted!');
     }
     public function checkSlug(Request $request)
     {
