@@ -14,7 +14,7 @@ Install
 2. Extract the zip file (source code) into the htdocs directory on XAMPP, for example htdocs/laravel-crud.
 OR 
 ```git 
-git clone command https://github.com/yudihendrawan/laravel-blog-post.git
+git clone https://github.com/yudihendrawan/laravel-blog-post.git
 ```
 
 3. Via terminal, cd to the laravel-blog-post directory.
