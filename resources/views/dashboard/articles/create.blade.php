@@ -6,7 +6,7 @@
     </div>
 
     <div class="col-lg-8">
-        <form method="post" action="/dashboard/articles" class="mb-5">
+        <form method="post" action="/dashboard/articles" class="mb-5" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
@@ -40,6 +40,16 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="image" class="form-label">Article image</label>
+                <img class="img-preview img-fluid mb-3" alt="">
+                <input type="file" class="form-control @error('image') is-invalid @enderror" id="formFile" name="image" onchange="previewImage()">
+                @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
                 @error('body')
                 <p class="text-danger" >{{ $message }}</p>
@@ -47,7 +57,7 @@
                     <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                     <trix-editor input="body"></trix-editor>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Create Article</button>
         </form>
     </div>
 
@@ -63,5 +73,12 @@
         document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
         })
+
+        function previewImage (){
+            const image = document.querySelector('#image');
+            const imgPreview = document.querySelector('.img-preview');
+            imgPreview.src=URL.createObjectURL(event.target.files[0]);
+        }
+
     </script>
 @endsection

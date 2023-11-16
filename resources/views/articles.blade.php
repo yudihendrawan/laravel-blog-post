@@ -24,8 +24,16 @@
 
     @if ($articles->count())
         <div class="card mb-3">
-            <img src="https://source.unsplash.com/1200x400?{{ $articles[0]->category->name }}" class="card-img-top"
-                alt="{{ $articles[0]->category->name }}">
+            @if ($articles[0]->image)
+                <div style="max-height:400px;overflow:hidden;margin: auto">
+                    <img src="{{ asset('storage/' . $articles[0]->image) }}" alt="{{ $articles[0]->category->name }}"
+                        class="img-fluid">
+                </div>
+            @else
+                <img src="https://source.unsplash.com/1200x400?{{ $articles[0]->category->name }}" class="card-img-top"
+                    alt="{{ $articles[0]->category->name }}">
+            @endif
+
             <div class="card-body text-center">
                 <h3 class="card-title"><a href="/articles/{{ $articles[0]->slug }}"
                         class="text-decoration-none text-dark">{{ $articles[0]->title }}</a></h3>
@@ -55,8 +63,14 @@
                             <div class="position-absolute px-3 py-2" style="background-color: rgba(0, 0, 0, 0.7)"><a
                                     href="/articles?category={{ $article->category->slug }}"
                                     class="text-white text-decoration-none">{{ $article->category->name }}</a></div>
-                            <img src="https://source.unsplash.com/500x400?{{ $article->category->name }}"
-                                class="card-img-top" alt="{{ $article->category->name }}">
+                            @if ($article->image)
+                                <img src="{{ asset('storage/' . $article->image) }}" alt="{{ $article->category->name }}"
+                                    class="img-fluid">
+                            @else
+                                <img src="https://source.unsplash.com/500x400?{{ $article->category->name }}"
+                                    class="card-img-top" alt="{{ $article->category->name }}">
+                            @endif
+
                             <div class="card-body">
                                 <h5 class="card-title">{{ $article->title }}</h5>
                                 <p>

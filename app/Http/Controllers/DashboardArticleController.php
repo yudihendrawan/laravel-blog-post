@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 class DashboardArticleController extends Controller
 {
     /**
@@ -46,8 +47,13 @@ class DashboardArticleController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:articles',
             'category_id' => 'required',
+            'image' => 'image|file|max:1024',
             'body' => 'required'
         ]);
+
+        if ($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('articles-image');
+        }
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
@@ -103,14 +109,23 @@ class DashboardArticleController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'category_id' => 'required',
+            'image' => 'image|file|max:1024',
             'body' => 'required'
         ];
 
+      
         if ($request->slug != $article->slug) {
             $rules['slug'] = 'required|unique:articles';
         }
 
         $validatedData = $request->validate($rules);
+        if ($request->file('image')) {
+            if ($article->image != null) {
+                Storage::delete($article->image);
+            }
+
+            $validatedData['image'] = $request->file('image')->store('articles-image');
+        }
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['excerpt'] = Str::limit(strip_tags($request->body), 200);
 
@@ -128,9 +143,12 @@ class DashboardArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        Article::destroy($article->id);
+        // if ($article->image) {
+        //     Storage::delete($article->image);
+        // }
+        // Article::destroy($article->id);
 
-        return redirect('/dashboard/articles')->with('success', 'Article has been deleted!');
+        // return redirect('/dashboard/articles')->with('success', 'Article has been deleted!');
     }
     public function checkSlug(Request $request)
     {

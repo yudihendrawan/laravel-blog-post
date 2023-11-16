@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category;
 
 use Illuminate\Support\Facades\Route;
@@ -67,3 +68,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/dashboard/articles/checkSlug', [DashboardArticleController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/articles', DashboardArticleController::class)->middleware('auth');
+
+Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('auth');
+Route::resource('/dashboard/categories', AdminCategoryController::class)->middleware('admin');
