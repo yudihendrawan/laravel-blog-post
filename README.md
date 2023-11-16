@@ -18,7 +18,7 @@ git clone https://github.com/yudihendrawan/laravel-blog-post.git
 ```
 
 3. Via terminal, cd to the laravel-blog-post directory.
-4. (According to the installation instructions) In the terminal, give the command ```git composer install```. This requires an internet connection.
+4. (According to the installation instructions) In the terminal, give the command ```composer install```. This requires an internet connection.
 5. Composer will install the package dependencies from the source code until it is finished.
 6. Run the php artisan command, to test whether the Laravel artisan command works.
 7. Create a new (empty) database in mysql (via phpmyadmin) with the name crud.
