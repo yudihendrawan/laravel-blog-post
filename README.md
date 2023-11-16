@@ -26,7 +26,7 @@ composer install
 6. Run the php artisan command, to test whether the Laravel artisan command works.
 7. Create a new (empty) database in mysql (via phpmyadmin) with the name crud.
 8. Duplicate the .env.example file, then rename it to .env.
-9. Go back to the terminal, php artisan key:generate.
+9. Go back to the terminal, ```php artisan key:generate```.
 10. Database connection settings in the .env file (DB_DATABASE, DB_USERNAME, DB_PASSWORD).
 ```env
 DB_CONNECTION=mysql
