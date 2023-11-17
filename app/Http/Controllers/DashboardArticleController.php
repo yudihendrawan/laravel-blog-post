@@ -143,12 +143,12 @@ class DashboardArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        // if ($article->image) {
-        //     Storage::delete($article->image);
-        // }
-        // Article::destroy($article->id);
+        if ($article->image) {
+            Storage::delete($article->image);
+        }
+        Article::destroy($article->id);
 
-        // return redirect('/dashboard/articles')->with('success', 'Article has been deleted!');
+        return redirect('/dashboard/articles')->with('success', 'Article has been deleted!');
     }
     public function checkSlug(Request $request)
     {

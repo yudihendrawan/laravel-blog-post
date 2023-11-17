@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LoginController;
@@ -71,3 +72,11 @@ Route::resource('/dashboard/articles', DashboardArticleController::class)->middl
 
 Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/categories', AdminCategoryController::class)->middleware('admin');
+Route::get('/test-database', function () {
+    try {
+        DB::connection();
+        print_r("Connected successfully to: " . DB::connection()->getDatabaseName());
+    } catch (\Exception $e) {
+        die("Could not connect to the database.  Please check your configuration. Error:" . $e);
+    }
+});
