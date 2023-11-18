@@ -16,7 +16,7 @@
     {{-- My Style --}}
     <link rel="stylesheet" href="/css/style.css">
 
-    <title>WPU Blog | {{ $title }}</title>
+    <title>YStudio | {{ $title }}</title>
 </head>
 
 <body>
