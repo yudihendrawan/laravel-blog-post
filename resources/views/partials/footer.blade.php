@@ -26,12 +26,12 @@
                     <use xlink:href="#bootstrap" />
                 </svg>
             </a>
-            <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 YStudio</span>
+            <span class="mb-3 mb-md-0 text-body-secondary">&copy; 2023 OkkyAryadna</span>
         </div>
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3">
-                <a class="text-body-secondary" href="https://www.instagram.com/yudihendrawan_/">
+                <a class="text-body-secondary" href="https://www.instagram.com/okkyaryadna97/">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" class="text-dark" height="25"
                         fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
                         <path
@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="ms-3">
-                <a class="text-body-secondary" href="https://github.com/yudihendrawan">
+                <a class="text-body-secondary" href="https://github.com/okkyariatnavaleri">
                     <svg class="text-dark" xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                         fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
                         <path

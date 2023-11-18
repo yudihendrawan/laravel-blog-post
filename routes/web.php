@@ -37,9 +37,9 @@ Route::get('/about', function () {
     return view('about', [
         'title' => 'About',
         'active' => 'about',
-        'name' => 'Yudi Hendrawan',
-        'email' => 'yudihendrawan04@gmail.com',
-        'image' => 'yudihendrawan.jpg'
+        'name' => 'Okky Ariatna Valeri',
+        'email' => 'okkyaryadna97@gmail.com',
+        'image' => 'okky.jpg'
     ]);
 });
 
