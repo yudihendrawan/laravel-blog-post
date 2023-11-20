@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category;
 
@@ -7,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleByDateController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardArticleController;
@@ -35,15 +37,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/about', function () {
-    return view('about', [
-        'title' => 'About',
-        'active' => 'about',
-        'name' => 'Yudi Hendrawan',
-        'email' => 'yudihendrawan04@gmail.com',
-        'image' => 'yudihendrawan.jpg'
-    ]);
-});
+Route::get('/authors', [AuthorController::class, 'index']);
+Route::get('/author/{user:id}', [AuthorController::class, 'show']);
 
 Route::get('/articles', [ArticleController::class, 'index']);
 // Route::get('/articlesbydate', [ArticleByDateController::class, 'index']);
