@@ -18,37 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         
 
-        // User::create([
-        //     'name' => 'Sandhika Galih',
-        //     'email' => 'sandhikagalih@gmail.com',
-        //     'password' => bcrypt('12345')
-        // ]);
-
-        // User::create([
-        //     'name' => 'Doddy Ferdiansyah',
-        //     'email' => 'doddy@gmail.com',
-        //     'password' => bcrypt('12345')
-        // ]);
-
-        User::factory(3)->create();
-
-        Category::create([
-            'name' => 'Web Programming',
-            'slug' => 'web-programming'
-        ]);
-
-        Category::create([
-            'name' => 'Web Design',
-            'slug' => 'web-design'
-        ]);
-
-        Category::create([
-            'name' => 'Personal',
-            'slug' => 'personal'
-        ]);
-
-        Post::factory(20)->create();
-
         // Post::create([
         //     'title' => 'Judul Pertama',
         //     'slug' => 'judul-pertama',
