@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleByDateController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardArticleController;
@@ -45,9 +46,19 @@ Route::get('/about', function () {
 });
 
 Route::get('/articles', [ArticleController::class, 'index']);
+// Route::get('/articlesbydate', [ArticleByDateController::class, 'index']);
 Route::get('/articles/{article:slug}', [ArticleController::class, 'show']);
 
 Route::get('/categories', function () {
+    return view('categories', [
+        'title' => 'Article Categories',
+        'active' => 'categories',
+        'categories' => Category::all()
+    ]);
+});
+
+
+Route::get('/author', function () {
     return view('categories', [
         'title' => 'Article Categories',
         'active' => 'categories',
@@ -67,16 +78,6 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->middleware('auth');
 
-Route::get('/dashboard/articles/checkSlug', [DashboardArticleController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/articles', DashboardArticleController::class)->middleware('auth');
-
-Route::get('/dashboard/categories/checkSlug', [AdminCategoryController::class, 'checkSlug'])->middleware('auth');
 Route::resource('/dashboard/categories', AdminCategoryController::class)->middleware('admin');
-Route::get('/test-database', function () {
-    try {
-        DB::connection();
-        print_r("Connected successfully to: " . DB::connection()->getDatabaseName());
-    } catch (\Exception $e) {
-        die("Could not connect to the database.  Please check your configuration. Error:" . $e);
-    }
-});
+
